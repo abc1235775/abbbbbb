@@ -8,3 +8,10 @@ class Todo(Base):
     description = Column(String,nullable=True)
     completed = Column(Boolean,default=False)
     due_date = Column (Date,nullable=True)
+
+class User(Base):
+    __tablename__= "users"
+    id = Column(Integer,primary_key=True,index=True)
+    username = Column(String,nullable=False)
+    password = Column(String,nullable=False)
+    email = Column(String,nullable=True)
