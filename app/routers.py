@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from .schemas import TodoCreate,TodoResponse
 from .models import Todo
 from .database import SessionLocal
-
+from .auth import get_current_user
 router = APIRouter()
 #Database Injection
 def get_db():
@@ -16,7 +16,7 @@ def get_db():
 ROUTING
 """
 @router.post("/todos",response_model=TodoResponse)
-def create_todo(todo:TodoCreate,db:Session=Depends(get_db)):
+def create_todo(todo:TodoCreate,db:Session=Depends(get_db),current_user:dict=Depends(get_current_user)):
     db_todo=Todo(**todo.dict())
     db.add(db_todo)
     db.commit()
